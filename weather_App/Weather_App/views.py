@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 import requests
 from decouple import config
 from pprint import pprint
@@ -25,6 +25,7 @@ def index(request):
                 messages.success(request,"City was successfully added")
         else:
             messages.warning(request,"There isn't a city called this name")
+        return redirect("index")
     else:
         messages.warning(request,"Please enter a City")
     city_data=[]
@@ -51,3 +52,9 @@ def index(request):
         
    
     return render(request,'Weather_App/index.html',context)
+
+def delete_weather(request,id):
+    city=get_object_or_404(City,id=id)
+    city.delete()
+    return redirect("index")
+

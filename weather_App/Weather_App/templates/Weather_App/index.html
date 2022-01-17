@@ -17,7 +17,7 @@
     <title>WeatherApp</title>
 </head>
 
-<body style="font-family: sans-serif">
+<body style="font-family: sans-serif" style="background-color: rgba(144, 173, 226, 0.22);">
 
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <div class="container">
@@ -68,7 +68,7 @@
 
 
 
-    <div class="container d-flex justify-content-center"
+    <div class="container d-flex justify-content-center " 
         style=" background-color: #ffffff ; border-color: #ffffff; align-items: center;  border-radius: 1rem; vertical-align: middle;">
         <div class="weather" class="width: 77%">
 
@@ -78,11 +78,12 @@
                 <div class=" col-md-6">
 
                     <div class="card"
-                        style="font-family: sans-serif; padding: 1rem; margin: 1.5rem 4vw; border-radius: 1rem; background-color: rgba(238, 237, 237, 0.22); border-color: rgba(238, 237, 237, 0.22); box-shadow: 5px 6px 6px 2px #e9ecef; text-align: center ">
+                        style="font-family: sans-serif; padding: 1rem; margin: 1.5rem 4vw; border-radius: 1rem; background-color: rgba(127, 165, 216, 0.22); border-color: rgba(238, 237, 237, 0.22); box-shadow: 5px 6px 6px 2px #e9ecef; text-align: center ">
                         <span class="icon"
                             style="align-self: flex-end; margin-right: -2.5rem; margin-top: -2rem;  z-index: 999 "><img
-                                class="img-fluid" style="width: 5rem"
+                                class="img-fluid" style="width: 7rem"
                                 src="https://openweathermap.org/img/w/{{city.icon}}.png" /></span>
+                        
                         <div class="title"
                             style="justify-content: center; position: absolute; left: 50%; transform: translateX(-50%);  ">
                             <p style=" margin-bottom: 0.2rem; font-size: 1.4rem">{{city.city.name}}</p>
@@ -100,6 +101,8 @@
                             </div>
 
                         </div>
+                        <span class="icon" style="align-self: flex-end; margin-right: -1.3rem; margin-top: -2rem;  z-index: 999 "><a href="{% url 'delete' city.city.id %}"><i class="fas fa-times"></i></a></span>
+
                     </div>
 
                 </div>
@@ -122,6 +125,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/038beae062.js" crossorigin="anonymous"></script>
 
 </body>
 
