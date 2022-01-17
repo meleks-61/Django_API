@@ -1,125 +1,128 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <!-- <link rel="stylesheet" href="{%static 'style.css'%}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+        integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew==" <!--
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <title>WeatherApp</title>
 </head>
-<body>
-    <div class="container d-flex justify-content-center">
-        <div class="weather">
-            <div class="row">
-                <div class=" col-md-6">
-                    <div class="card"> <span class="icon"><img class="img-fluid" src="https://img.icons8.com/emoji/96/000000/sun-emoji.png" /></span>
-                        <div class="title">
-                            <p>Sydney</p>
-                        </div>
-                        <div class="temp">+20<sup>&deg;</sup></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="header">General</div>
-                                <div class="value">Sunny</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Air pollution</div>
-                                <div class="value">47</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Fire</div>
-                                <div class="value">No</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card"> <span class="icon"><img class="img-fluid" src="https://img.icons8.com/emoji/96/000000/sun-emoji.png" /></span>
-                        <div class="title">
-                            <p>Melbourne</p>
-                        </div>
-                        <div class="temp">+18<sup>&deg;</sup></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="header">General</div>
-                                <div class="value">Sunny</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Air pollution</div>
-                                <div class="value">20</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Fire</div>
-                                <div class="value">No</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card"> <span class="icon"><img src="https://img.icons8.com/color/50/000000/wind.png" /></span>
-                        <div class="title">
-                            <p>Lithgow</p>
-                        </div>
-                        <div class="temp">+17<sup>&deg;</sup></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="header">General</div>
-                                <div class="value">Wind</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Air pollution</div>
-                                <div class="value">52</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Fire</div>
-                                <div class="value">No</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <v class="card"> <span class="icon"><img src="https://img.icons8.com/office/80/000000/partly-cloudy-day.png" /></span>
-                        <div class="title">
-                            <p>Darvin</p>
-                        </div>
-                        <div class="temp">+15<sup>&deg;</sup></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="header">General</div>
-                                <div class="value">Cloudy</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Air pollution</div>
-                                <div class="value">34</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="header">Fire</div>
-                                <div class="value">No</div>
-                            </div>
-                        </div>
-                </div>
-            </div>
+
+<body style="font-family: sans-serif">
+
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a href="../" class="navbar-brand">Weather App <span style="color: rgb(39, 117, 161);"> <strong> - Django
+                        Framework</strong>
+                </span> </a>
+            <a href="https://openweathermap.org" class="navbar-tech">OpenWeather - Get Your API</a>
         </div>
     </div>
+
+    <br />
+    <!-- message section -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- end message section -->
+
+
+
+    <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-30px">
+        <h1 class="display-5">Weather Desktop App </h1>
+        <h5>Using Python Language and Django Framework</h5>
+
+        <img src="{% static 'img/weather.png' %}" class="image" style="width:200px; margin-bottom:-50px; ">
     </div>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <form method="get" class="col-md">
+            {% csrf_token %}
+            <div class=" input-group">
+
+                <input type="text" class="form-control" name="city" placeholder="Choose Your City ...">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </nav>
+    <br> <br>
 
 
 
 
 
 
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script> 
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
+    <div class="container d-flex justify-content-center"
+        style=" background-color: #ffffff ; border-color: #ffffff; align-items: center;  border-radius: 1rem; vertical-align: middle;">
+        <div class="weather" class="width: 77%">
+
+            <div class="row">
+                {%for city in city_data%}
+
+                <div class=" col-md-6">
+
+                    <div class="card"
+                        style="font-family: sans-serif; padding: 1rem; margin: 1.5rem 4vw; border-radius: 1rem; background-color: rgba(238, 237, 237, 0.22); border-color: rgba(238, 237, 237, 0.22); box-shadow: 5px 6px 6px 2px #e9ecef; text-align: center ">
+                        <span class="icon"
+                            style="align-self: flex-end; margin-right: -2.5rem; margin-top: -2rem;  z-index: 999 "><img
+                                class="img-fluid" style="width: 5rem"
+                                src="https://openweathermap.org/img/w/{{city.icon}}.png" /></span>
+                        <div class="title"
+                            style="justify-content: center; position: absolute; left: 50%; transform: translateX(-50%);  ">
+                            <p style=" margin-bottom: 0.2rem; font-size: 1.4rem">{{city.city.name}}</p>
+                        </div>
+                        <div class="temp" style="font-size: 2.6rem;margin-bottom: 1rem ">{{city.temp}}<sup>&deg;</sup>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" style=" padding: 0 0.2rem">
+                                <div class="header" style=" color: #dddddd">General</div>
+                                <div class="value">{{city.desc}}</div>
+                            </div>
+                            <div class="col-6" style=" padding: 0 0.2rem">
+                                <div class="header" style="color: #dddddd">Date</div>
+                                <div class="value">{{city.day}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                {%endfor%}
+
+            </div>
+
+
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </body>
+
 </html>
