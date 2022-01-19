@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import home,todoList,todoListCreate,todo_List
+from .views import home,todoList,todoListCreate,todo_List,todoList_Update
 
 urlpatterns = [
     path('',home ),
     path('todoList/',todoList),
     path('todoListCreate/',todoListCreate),
     path('todo_List/',todo_List),
+    path('todoList_Update/<int:pk>/',todoList_Update),
 ]
