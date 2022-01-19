@@ -43,6 +43,35 @@ def todoList_Update(request,pk):
     serializer=TodoSerializer(instance=query,data=request.data)
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
+        return Response(serializer.data)#başarılıysa update yaapr
+    return Response(serializer.errors)#başarısızsa error döner
+
+@api_view(['DELETE'])
+def todoListDelete(request,pk):
+    query=Todo.objects.get(id=pk)
+    query.delete()
+    return Response("Item deleted")
+@api_view(['GET','PUT','DELETE'])
+def todoList_Detail(request,pk):
+    query=Todo.objects.get(id=pk)
+    if request.method=='GET':
+        
+        serializer=TodoSerializer(query)
+        return Response(serializer.data)
+    elif request.method=='PUT':
+        
+        serializer=TodoSerializer(instance=query,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    elif request.method=='DELETE':
+        
+        query.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+
+
 
     
