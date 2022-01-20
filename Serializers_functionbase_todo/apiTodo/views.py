@@ -110,7 +110,7 @@ class TodoDetail(APIView):
     
 #################### GEnericAPI View ###############
 class TodoListCreate(mixins.ListModelMixin,mixins.CreateModelMixin,GenericAPIView):
-    query=Todo.objects.all()
+    queryset=Todo.objects.all()
     serializer_class=TodoSerializer
     
     def get(self,request,*args,**kwargs):
@@ -121,4 +121,14 @@ class TodoListCreate(mixins.ListModelMixin,mixins.CreateModelMixin,GenericAPIVie
     
     
 
-    
+class TodoRetrieveUpdateDelete(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,GenericAPIView):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+    def delete(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
+        
+       
