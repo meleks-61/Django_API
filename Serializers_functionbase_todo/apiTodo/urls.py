@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import home,todoList,todoListCreate,todo_List,todoList_Update,todoListDelete,todoList_Detail,TodoList,TodoDetail,TodoListCreate,TodoRetrieveUpdateDelete
+from .views import (home,todoList,todoListCreate,todo_List,
+todoList_Update,todoListDelete,todoList_Detail,TodoList,TodoDetail,
+TodoListCreate,TodoRetrieveUpdateDelete,TodoConcListCreate,TodoConcRetreiveUpdateDelete)
 
 urlpatterns = [
     path('',home ),
@@ -13,7 +15,9 @@ urlpatterns = [
     # path('todo-List',TodoList.as_view()),
     # path('todo-Detail/<int:pk>',TodoDetail.as_view())
     
-    path('todo-List',TodoListCreate.as_view()),
+    # path('todo-List',TodoListCreate.as_view()),
+    path('todo-List',TodoConcListCreate.as_view()),
     # path('todo-Detail/<int:pk>',TodoDetail.as_view()),
-    path('todo-detail/<int:pk>',TodoRetrieveUpdateDelete.as_view()),
+    # path('todo-detail/<int:pk>',TodoRetrieveUpdateDelete.as_view()),
+    path('todo-detail/<int:pk>',TodoConcRetreiveUpdateDelete.as_view()),
 ]

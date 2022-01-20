@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 #classbase viewlwr için importlar
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView,mixins
+from rest_framework.generics import GenericAPIView,mixins,ListCreateAPIView,RetrieveUpdateDestroyAPIView
 
 
 # Create your views here.
@@ -130,5 +130,15 @@ class TodoRetrieveUpdateDelete(mixins.RetrieveModelMixin,mixins.UpdateModelMixin
         return self.update(request,*args,**kwargs)
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
-        
-       
+##############################  Conncrete View Class ##################################################################
+
+class TodoConcListCreate(ListCreateAPIView):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+    
+    
+class TodoConcRetreiveUpdateDelete(RetrieveUpdateDestroyAPIView):
+
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+      
