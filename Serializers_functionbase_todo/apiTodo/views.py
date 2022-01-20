@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 #classbase viewlwr için importlar
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView,mixins
 
 
 # Create your views here.
@@ -98,6 +99,7 @@ class TodoDetail(APIView):
         todo=self.get_object(pk)
         serializer=TodoSerializer(todo,data=request.data)
         if serializer.is_valid():
+            #serializer._data["success"]="Todo successfully updated"#dataya eleman eklemek için
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -105,6 +107,17 @@ class TodoDetail(APIView):
         todo=self.get_object(pk)
         todo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+#################### GEnericAPI View ###############
+class TodoListCreate(mixins.ListModelMixin,mixins.CreateModelMixin,GenericAPIView):
+    query=Todo.objects.all()
+    serializer_class=TodoSerializer
+    
+    def get(self,request,*args,**kwargs):
+        return self.list(request,*kwargs,**kwargs)
+    def post(self,request,*args,**kwargs):
+        return self.create(request,*kwargs,**kwargs)
+
     
     
 
