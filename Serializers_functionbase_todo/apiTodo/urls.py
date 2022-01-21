@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path,include#(routeri pathe ekleyebilmek için)
 from .views import (home,todoList,todoListCreate,todo_List,
 todoList_Update,todoListDelete,todoList_Detail,TodoList,TodoDetail,
-TodoListCreate,TodoRetrieveUpdateDelete,TodoConcListCreate,TodoConcRetreiveUpdateDelete)
+TodoListCreate,TodoRetrieveUpdateDelete,TodoConcListCreate,TodoConcRetreiveUpdateDelete,TododVSListRetreive)
+from rest_framework import routers
+
+router=routers.DefaultRouter()
+router.register('todovs-list',TododVSListRetreive)#bu kodları yazınca retrieve için pk kullanmaya gerek kalmıyor
+
 
 urlpatterns = [
     path('',home ),
@@ -20,4 +25,5 @@ urlpatterns = [
     # path('todo-Detail/<int:pk>',TodoDetail.as_view()),
     # path('todo-detail/<int:pk>',TodoRetrieveUpdateDelete.as_view()),
     path('todo-detail/<int:pk>',TodoConcRetreiveUpdateDelete.as_view()),
+    path('',include(router.urls))
 ]

@@ -9,6 +9,7 @@ from rest_framework import status
 #classbase viewlwr için importlar
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView,mixins,ListCreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import GenericViewSet
 
 
 # Create your views here.
@@ -141,4 +142,9 @@ class TodoConcRetreiveUpdateDelete(RetrieveUpdateDestroyAPIView):
 
     queryset=Todo.objects.all()
     serializer_class=TodoSerializer
+############################################## VİEWSET ##################################################
+class TododVSListRetreive(mixins.ListModelMixin,mixins.RetrieveModelMixin,GenericViewSet):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+
       
