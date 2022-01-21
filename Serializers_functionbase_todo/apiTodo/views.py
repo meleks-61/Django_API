@@ -3,13 +3,13 @@ from django.http import HttpResponse
 from .serializers import TodoSerializer
 from .models import Todo
 #functionbase view için importlar
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,action
 from rest_framework.response import Response
 from rest_framework import status
 #classbase viewlwr için importlar
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView,mixins,ListCreateAPIView,RetrieveUpdateDestroyAPIView
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet,ModelViewSet
 
 
 # Create your views here.
@@ -146,5 +146,14 @@ class TodoConcRetreiveUpdateDelete(RetrieveUpdateDestroyAPIView):
 class TododVSListRetreive(mixins.ListModelMixin,mixins.RetrieveModelMixin,GenericViewSet):
     queryset=Todo.objects.all()
     serializer_class=TodoSerializer
-
-      
+############################################### MODALVİEWSET ##########################################
+class TodosMVS(ModelViewSet):
+    quryset=Todo.objects.all()
+    serializer_class = TodoSerializer#tek ilemle bütün işlemleri yapar urlsdeki router müdahalesi ile
+    @action(detail=False,methods=['get'])
+    def todo_count(self,request):
+        todo_count=Todo.objects.filter(done=False).count()
+        count={
+            'undo-todos':todo_count
+        }
+        return Response(count)#{'count':count}
