@@ -1,7 +1,9 @@
 
+from dataclasses import fields
 from rest_framework import serializers,validators
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from dj_rest_auth.serializers import TokenSerializer
 
 class RegisterSerializer(serializers.ModelSerializer):
     email=serializers.EmailField(
@@ -55,4 +57,22 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"password":"Password fields didn't match."})
         return data
-            
+
+#user modelini kullanarak burada yeni bir serializer olusruracagız ve UserToken Serializer da bu modeli çağıracağız
+class UserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=('id','first_name','last_name','email')
+
+    
+#bizm userlar login oldugunda sadece token dönüyor oysa login oldugunda kullanıcı bilgileini döndürmek için:
+# kullanıcı bilgilerini databaseden alıp ön yüze aktarabilmek için bilgiileri json formatına çevirmeliyiz.Bunun için tokenserializer ını kullanacağız fakat tokenserializer içinde sadece key var biz user bilgilerini de eklemek için overright etmeliyiz.
+class CustomTokenSerializer(TokenSerializer):#TokenSerializerdan inherit ettik ve key ile beraber user döndürebilen yeni bir serializer oluşturduk(CustomTokenSerializer)
+    user=UserTokenSerializer(read_only=True)#Token Serializer içinde user bilgisi olmadıgı için burda tanımladık
+    class Meta(TokenSerializer.Meta):
+        fields=('key','user')   
+#bu işlemden sonra settings'e eklememiz gereken:
+# REST_AUTH_SERIALIZER={
+#     'TOKEN_SERIALIZER':'accounts.serializers.CustomTokenSerializer',
+# }#inherit edildiği için
+        

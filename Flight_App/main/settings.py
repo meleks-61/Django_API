@@ -138,3 +138,14 @@ MEDIA_URL ='/media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_AUTH_SERIALIZERS={
+    'TOKEN_SERIALIZER':'accounts.serializers.CustomTokenSerializer',
+}
+#inherit edildiği için
+
+#authantication için
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
