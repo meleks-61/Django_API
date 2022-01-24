@@ -7,7 +7,8 @@ from rest_framework import routers
 
 router=routers.DefaultRouter()
 router.register('todovs-list',TododVSListRetreive)#bu kodları yazınca retrieve için pk kullanmaya gerek kalmıyor
-router.register('todomvs-list',TodosMVS)
+router.register('todomvs-list',TodosMV
+                S)
 
 urlpatterns = [
     path('',home ),
