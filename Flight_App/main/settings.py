@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #swagger
     'drf_yasg',
     #my_apps
+    'accounts',
     
 ]
 
