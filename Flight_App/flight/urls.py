@@ -4,7 +4,7 @@ from rest_framework import routers#viewsetlerle çalışırken router kullanıyr
 
 
 router=routers.DefaultRouter()
-router.register('flights',FlightView)#filght/flights dediğimizde FlightViewini çalıştıracak.
+router.register('flights',FlightView)#filght/flights dediğimizde FlightViewini çalıştıracak.Roter sayesinde bütün işlemler için(create,update,delete,detail için) bütün pathleri sağlıyor
 
 
 
