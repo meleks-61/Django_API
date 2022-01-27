@@ -3,6 +3,8 @@ from .models import Flight,Reservation,Passenger
 from .serializers import FligtSerializer,ReservationSerializer,StaffFlightSerializer
 from rest_framework import viewsets,filters#viewsetsi modelviewset kullanavağız,filter da search için
 from .permissions import IsStuffOrReadOnly
+from datetime import datetime,date
+
 
 
 
@@ -19,6 +21,14 @@ class FlightView(viewsets.ModelViewSet):#tüm işlemleri(get,put,post,delete,pat
             return super().get_serializer_class()#queryset
         else:
             return FligtSerializer
+    def get_queryset(self):#geçmiş uçuşları görmesin normal userlar ama staff userlar gelmiş geçmiş bütün uçuşları görsün
+        now=datetime.now()
+        current_time=now.strftime("%H:%M:%S")
+        today=date.today()
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        else:
+            queryset=Flight.objects.filter(dateOfDeparture__gte=today).filter(estimatedTimeOfDeparture__gt=current_time)
     
 class ReservationView(viewsets.ModelViewSet):
     queryset=Reservation.objects.all()
