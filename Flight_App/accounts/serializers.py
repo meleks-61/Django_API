@@ -42,7 +42,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         }
         #User modelinde normalde password2 yok o yüzden create methodunu tekrar overright edip passsword2 yi içinden çıkaracağız
         
-    def create(self,validated_data):
+    def create(self,validated_data):#burdaki validated_data json formatında gelen bilgileri bana dictionary formatında gönderiyo.Böylelikle python kullanarak bu dictin içine eleman ekleyebilirim,burdan eleman cıkarabişirim ya da kopyalayabilirm 
         password=validated_data.get("password")    
         validated_data.pop("password2")#kullanıcıdan gelen valide edilmiş password2 yi passworde atadagımız datdan cıkarıyoruz.Şuan bizim validated _datamız user create etmeye uygun hale geldi
         
