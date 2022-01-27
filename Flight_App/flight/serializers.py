@@ -2,7 +2,7 @@ from dataclasses import fields
 from .models import Flight,Reservation,Passenger
 from rest_framework import serializers
 
-class FligtSerializer(serializers.ModelSerializer):
+class FligtSerializer(serializers.ModelSerializer):#sadece flightları gösteren serializer
     class Meta:
         model=Flight
         fields="__all__"
@@ -36,3 +36,22 @@ class ReservationSerializer(serializers.ModelSerializer):
             reservation.passenger.add(Passenger.objects.create(**passenger_d))#manttomany fieldına bir şey eklemek istiyorsak bunu add ile yapıyoruz.Burda reservation objesine passengerları ekledik tek tek
        reservation.save() 
        return reservation   
+   
+   
+#kullanıcı is_staff ise bir uçusa ait tüm rezervasyonları görsün.Normal user(is_staffsız)sadece flight listesini görsün
+#bunun için ayrı bir serializerım olmalı ve o serializerda is_staff ise şu serializerı değilse şu serializerı göster mantıgı olacak.Serializerlar arasında switch yapıcaz,
+class StaffFlightSerializer(serializers.ModelSerializer):#hem flightları hem de flightlara  ait rezervasyonları gösteren serializer
+    reservations=ReservationSerializer(many=True,read_only=True)
+    
+    class Meta:
+        model=Flight
+        fields=(
+            "flightNumber",
+            "operatingAirlines",
+            "departureCity",
+            "arrivalCity",
+            "dateOfDeparture",
+            "estimatedTimeOfDeparture",
+            "reservations"  
+        )
+    

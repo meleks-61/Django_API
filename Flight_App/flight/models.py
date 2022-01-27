@@ -28,7 +28,7 @@ class Reservation(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)#o rezervasyonu hangi user login olarak yapmıs.Bir User birden çok kişi için rezervasyon yaptırabilir ama bir rezervasyonun bir tane userı olur
     passenger=models.ManyToManyField(Passenger,related_name='passenger')#bir yolcunun birden cok rezervasyonu(farklı zamanlarda ) olabilir ,bir rezervasyonda birden cok yolcu olabil oyuzden many to many
     flight=models.ForeignKey(Flight,on_delete=models.CASCADE,related_name='reservations')#databasedeki karşılığı flight_id şeklinde bulunur
-    
+    #
     def __str__(self):
         return self.flight
     
