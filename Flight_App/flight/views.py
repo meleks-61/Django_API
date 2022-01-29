@@ -28,7 +28,13 @@ class FlightView(viewsets.ModelViewSet):#tüm işlemleri(get,put,post,delete,pat
         if self.request.user.is_staff:
             return super().get_queryset()
         else:
-            queryset=Flight.objects.filter(dateOfDeparture__gte=today).filter(estimatedTimeOfDeparture__gt=current_time)
+            queryset=Flight.objects.filter(dateOfDeparture__gt=today)# bugünden büyük tarihleri göster göster
+            if Flight.objects.filter(dateOfDeparture=today):#eğer tarih bugün ise
+                today_qs=Flight.objects.filter(dateOfDeparture=today).filter(estimatedTimeOfDeparture__gt=now)#bugünki uçuşlardan kalkış saati şuan ve ileriki zamanda olanları göster
+                queryset=queryset.union(today_qs)#bugün tarihinden büyük olan querysete ,bugün içinde saati şuandan ileri olan uçuşları içeren queryseti ekledik union methodu ile
+            return queryset
+        
+        
     
 class ReservationView(viewsets.ModelViewSet):
     queryset=Reservation.objects.all()
