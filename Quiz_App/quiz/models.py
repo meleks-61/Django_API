@@ -1,5 +1,4 @@
-from tabnanny import verbose
-from unicodedata import category
+
 from django.db import models
 
 # Create your models here.
@@ -10,6 +9,9 @@ class Category(models.Model):
         return self.name
     class Meta:
         verbose_name_plural="Categories"#admin paneldeki isim Categorys değil de bu sayede <categories olacak
+        
+    def quiz_count(self):#bir categorye ait kaç tane quiz var diye saymak için
+        return self.quiz_set.count()#modelin ismi küçük harflerle_set(standart)
 class Quiz(models.Model):
     title=models.CharField(max_length=100, )#verbose_name attribute ile adminde title istediğimiz şekilde adlandırabiliriz
     category=models.ForeignKey(Category,on_delete=models.CASCADE)#quiz categorynin altında olacağı için foreignkey ile bağladık
